@@ -94,6 +94,8 @@ Prices from [Render's pricing page](https://render.com/pricing).
 | 1 GB disk | $0.25 |
 | **Total** | **~$7.25** |
 
+Fusion used under 10 MB of memory in testing. Starter is the smallest plan that supports a disk.
+
 ## Troubleshooting
 
 | Problem | Solution |
