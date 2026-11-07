@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://render.com/schema/render.yaml.json
+#
+# Fusion wrapper. This repo does not contain the app.
+# The service pulls the official image from GHCR at a pinned version.
+# To upgrade, bump the image tag below and push.
+# Upstream: https://github.com/0x2E/fusion
+
+previews:
+  generation: off
+
+services:
+  - type: web
+    name: fusion
+    runtime: image
+    image:
+      url: ghcr.io/0x2e/fusion:1.3.0
+    plan: starter
+    region: oregon
+    # SQLite on a disk, so one instance only.
+    numInstances: 1
+    healthCheckPath: /api/oidc/enabled
+    disk:
+      name: fusion-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: FUSION_PORT
+        value: "8080"
+      - key: FUSION_DB_PATH
+        value: /data/fusion.db
+      # Web UI login. Also derives the Fever API key: md5(fusion:<password>).
+      - key: FUSION_PASSWORD
+        generateValue: true
